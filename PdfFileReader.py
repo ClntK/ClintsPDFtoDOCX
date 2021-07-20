@@ -30,7 +30,7 @@ def main(reader, offset):
     elif oneOrMany == "N" or oneOrMany == "n":
         one(reader, offset)
     elif oneOrMany == "B" or oneOrMany == "b":
-        oneOrMany(reader, offset)
+        main(reader, offset)
     else:
         print("please enter \"y\", \"n\", or \"b\"")
 
