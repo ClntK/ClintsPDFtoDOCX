@@ -6,12 +6,13 @@ Purpose:
     - copy text from a PDF file into a word docx
 
     - An offset variable is provided to compensate for the fact that
-    the PDF reader counts all pages before thr true start of the text
-    (i.e. contents, forward, preface. etc)
+    the PDF reader includes all pages before the first numbered page 
+    (this includes contents, forward, preface, everything except the 
+    cover, ignore the cover.)
 
-    - To determine the offset variable, count these pages with the
-    exception of the cover page itself. Dont count the cover,
-    the cover doesnt count.
+    - To determine the offset variable, count all pages before the 
+    first numbered page except the cover, and enter that number 
+    when prompted.
 
 """
 
