@@ -6,7 +6,8 @@ Purpose:
     - copy text from a PDF file into a word docx
 
     - An offset variable is provided to compensate for the fact that
-    the PDF reader includes all pages before the first numbered page 
+    the PDF reader includes all pages before the first numbered page
+    in its total page count. 
     (this includes contents, forward, preface, everything except the 
     cover, ignore the cover.)
 
