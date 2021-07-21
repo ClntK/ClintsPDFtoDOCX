@@ -95,10 +95,10 @@ def many(reader, offset):
                 output = ""
                 pageArray = []
                 # create an array of all pages to be copied
-                while firstPage <= lastPage:
-                    pageNum = firstPage
+                while intFirstPage <= intLastPage:
+                    pageNum = intFirstPage
                     pageArray.append(pageNum)
-                    firstPage += 1
+                    intFirstPage += 1
                 print("\nPages to be copied: ", pageArray)
                 # extract text from multiple pages
                 for page in pageArray:
