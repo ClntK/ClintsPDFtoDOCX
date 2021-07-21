@@ -87,7 +87,7 @@ def many(reader, offset):
         if lastPage == "B" or lastPage == "b":
             many(reader, offset)
     # test to ensure input is int type
-        elif firstPage.isdigit() == True:
+        elif lastPage.isdigit() == True:
             intLastPage = int(lastPage)
             # ensure the value of firstPage is < the value of lastPage
             if intFirstPage < intLastPage:
@@ -112,10 +112,12 @@ def many(reader, offset):
                 many(reader, offset)
         # if lastPage input is not an int
         else:
-            print("please enter a number.")
+            print("please enter a page number.")
+            many(reader, offset)
     # if firstPage input is not an int
     else:
-        print("please enter a number.")
+        print("please enter a page number.")
+        many(reader, offset)
 
 ####################################
 # OFFSET DETERMINATION
