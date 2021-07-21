@@ -18,7 +18,6 @@ Purpose:
 """
 
 import PyPDF2
-from PyPDF2.pdf import convertToInt
 from docx import Document
 
 
