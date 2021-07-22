@@ -2,6 +2,7 @@
 FileName: PdfFileReader.py
 Author: Clint Kline
 Created: 7-18-2021
+Last Updated: 7-21-2021
 Purpose:
     - copy text from a PDF file into a word docx
 
@@ -47,6 +48,15 @@ def oneOrMany(reader, offset):
         print("\n\nPlease enter \"y\", \"n\", or \"b\"")
         oneOrMany(reader, offset)
 
+
+######################################
+# BACK FUNCTION
+######################################
+
+def back(var1, func, p1, *args):
+    if var1 == "B" or var1 == "b":
+        func(p1, args)
+
 ######################################
 # ONE PAGE FUNCTION
 ######################################
@@ -60,8 +70,8 @@ def one(reader, offset):
         pageObj = reader.getPage(intPageNum + offset)
         output = pageObj.extractText()
         format(output)
-    elif pageNum == "B" or pageNum == "b":
-        oneOrMany(reader, offset)
+    elif pageNum.isdigit() == False:
+        back(pageNum, oneOrMany, reader, offset)
     else:
         print(
             "Input must be either an integer or the letter \"b\" to go back.")
@@ -76,16 +86,16 @@ def many(reader, offset):
     # accept number of first page to be copied
     firstPage = input("\nFirst Page:\n")
     # hit b to go back to oneOrMany
-    if firstPage == "B" or firstPage == "b":
-        oneOrMany(reader, offset)
+    if firstPage.isdigit() == False:
+        back(firstPage, oneOrMany, reader, offset)
     # test to ensure input is int type
     elif firstPage.isdigit() == True:
         intFirstPage = int(firstPage)
         # accept number of last page to be copied
         lastPage = input("\nLast Page:\n")  # 20
         # hit b to restart many
-        if lastPage == "B" or lastPage == "b":
-            many(reader, offset)
+        if lastPage.isdigit() == False:
+            back(lastPage, many, reader, offset)
     # test to ensure input is int type
         elif lastPage.isdigit() == True:
             intLastPage = int(lastPage)
@@ -124,7 +134,7 @@ def many(reader, offset):
 ####################################
 
 
-def offsetFunc(reader):
+def offsetFunc(reader, *args):
     # accept an offset
     try:
         offset = int(input("\nIf there is an offset of the page number enter it here, if not enter 0:\n(- To determine the offset variable, count all pages before the first numbered page (this includes contents, forward, preface, everything except the cover.))\n"))
@@ -152,7 +162,7 @@ def format(output):
 
 
 ######################################
-# OUTPUT
+# OUTPUT & FILE NAMING
 ######################################
 
 def saveAsDocx(output):
@@ -173,6 +183,9 @@ def saveAsDocx(output):
     name = input("\nWhat do you want to name the docx file?\n")
     if name == "B" or name == "b":
         offsetFunc(reader)
+
+    # if name == "B" or name == "b":
+    #    offsetFunc(reader)
     # save file
     docx.save(name + ".docx")
     print("\n\nDocument saved as", name + ".docx")
