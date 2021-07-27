@@ -1,18 +1,9 @@
-"""
-File: testfile.py
-Author: Clint Kline
-Creation Date: 06-30-2021
-Last updated: 06-30-2021
-Purpose: Playground
 
 """
-
-
-"""
-FileName: PdfFileReader.py
+FileName: PdfFileReader3.py
 Author: Clint Kline
 Created: 7-18-2021
-Last Updated: 7-21-2021
+Last Updated: 7-27-2021
 Purpose:
     - copy text from a PDF file into a word docx
 
