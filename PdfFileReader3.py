@@ -17,6 +17,12 @@ Purpose:
     first numbered page except the cover, and enter that number
     when prompted.
 
+>>> Issues: 
+    - If the user chooses to back up after a page number is given to copy a single page,
+    the 'reader' object is converted from an object, to a string. The cause of this issue
+    is unidentified as of 07-27-2021. 
+
+
 """
 
 
