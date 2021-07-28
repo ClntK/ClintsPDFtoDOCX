@@ -30,6 +30,11 @@ import PyPDF2
 import gc
 from docx import Document
 from tkinter.filedialog import askdirectory
+
+#####################################
+GLOBALS
+#####################################
+
 offset = 0
 
 
