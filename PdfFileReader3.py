@@ -27,12 +27,11 @@ Purpose:
 
 
 import PyPDF2
-import gc
 from docx import Document
 from tkinter.filedialog import askdirectory
 
 #####################################
-GLOBALS
+# GLOBALS
 #####################################
 
 offset = 0
