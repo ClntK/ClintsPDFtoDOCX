@@ -251,7 +251,7 @@ def saveAsDocx(output, reader, offset, func):
     # remove any whitespace from the name. deal with it.
     name = name.strip()
 
-    back(name, func, output, offset)
+    back(name, func, reader, offset)
 
     if testFileName(name, saveAsDocx, output) == 1 or 2 or 3:
         # open file dialog to select save location
