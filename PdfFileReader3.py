@@ -1,10 +1,18 @@
+"""
+File: testfile.py
+Author: Clint Kline
+Creation Date: 06-30-2021
+Last updated: 06-30-2021
+Purpose: Playground
 
 """
 
-FileName: PdfFileReader3.py
+
+"""
+FileName: PdfFileReader.py
 Author: Clint Kline
 Created: 7-18-2021
-Last Updated: 7-27-2021
+Last Updated: 7-21-2021
 Purpose:
     - copy text from a PDF file into a word docx
 
@@ -24,6 +32,7 @@ Purpose:
 import PyPDF2
 from docx import Document
 from tkinter.filedialog import askdirectory
+offset = 0
 
 
 #####################################
@@ -115,7 +124,7 @@ def one(reader, offset):
         # set pageObj value to page number passed to reader variable
         pageObj = reader.getPage(intPageNum + offset)
         output = pageObj.extractText()
-        format(output, reader, offset, one)
+        format(output, reader, offset)
     elif pageNum.isdigit() == False:
         back(pageNum, oneOrMany, reader, offset)
     else:
@@ -172,7 +181,7 @@ def lastPageFunc(reader, offset, intFirstPage):
                 pageObj = reader.getPage(page + offset)
                 output += pageObj.extractText()
             # send output to format() function
-            format(output, reader, offset, firstPageFunc)
+            format(output, reader, offset)
         # if the value of lastPage is > firstPage
         else:
             print("\n\nThe first page must come before the last page.")
@@ -209,7 +218,7 @@ def offsetFunc(reader, *args):
 
 # corrects odd character conversions and indentations
 
-def format(output, reader, offset, func):
+def format(output, reader, offset):
     # account for S characters that rep " - " symbols
     noDashOutput = output.replace("Š", " - ")
     # remove unwanted auto-line breaks
@@ -218,7 +227,7 @@ def format(output, reader, offset, func):
     noDashOutputWithGoodLineBreaks = noDashOutputRemovebadLineBreaks.replace(
         ".", ".\n\n")
     tradeMarkToApostrophe = noDashOutputWithGoodLineBreaks.replace("™", "'")
-    saveAsDocx(tradeMarkToApostrophe, reader, offset, func)
+    saveAsDocx(tradeMarkToApostrophe, reader, offset)
 
 
 ######################################
@@ -226,7 +235,7 @@ def format(output, reader, offset, func):
 ######################################
 
 
-def saveAsDocx(output, reader, offset, func):
+def saveAsDocx(output, *args):
 
     #######
     # vvv see the output as its written
@@ -246,7 +255,7 @@ def saveAsDocx(output, reader, offset, func):
     # remove any whitespace from the name. deal with it.
     name = name.strip()
 
-    back(name, func, reader, offset)
+    back(name, one, output, offset)
 
     if testFileName(name, saveAsDocx, output) == 1 or 2 or 3:
         # open file dialog to select save location
@@ -259,7 +268,7 @@ def saveAsDocx(output, reader, offset, func):
         print("\n\nDocument saved as", name + ".docx @", saveLocation)
     elif testFileName(name, saveAsDocx, output) == 4 or 5:
         print(name, "was not saved.")
-        one(reader, offset)
+        one(reader, *args)
 
 
 ###############################
