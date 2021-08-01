@@ -41,12 +41,12 @@ def main(reader, offset):
 
 
 def back(var1, func, *args):
-    #print("back::", "var1: ", var1, "func: ", func, "args: ", *args)
+    # print("back::", "var1: ", var1, "func: ", func, "args: ", *args)
     if var1.lower() == "b":
         argSet = []
         for arg in list(*args):
             argSet.append(arg)
-        #print("argSet length: ", len(argSet), "argSet: ", argSet)
+        # print("argSet length: ", len(argSet), "argSet: ", argSet)
         if len(argSet) == 0:
             func()
         elif len(argSet) == 1:
@@ -65,7 +65,7 @@ def back(var1, func, *args):
 
 
 def testFileName(var1, func, *args):
-    #print("testFileName", "var1: ", var1, "func: ", func)
+    # print("testFileName", "var1: ", var1, "func: ", func, "args: ", args)
     # provide a list of illegal filname characters
     illegalChars = ["`", "~", "!", "@", "#", "$", "%", "^", "&", "*", "+", "=", "'", "|", ":", ";",
                     "[", "]", "{", "}", "<", ">", ",", "/" "?", "\\", "\"", "\n", "\r", "\t", "\b", "\f"]
@@ -117,13 +117,13 @@ def oneOrMany(reader, offset):
 
 
 def one(reader, offset):
-    #print("one", "reader: ", reader, "offset: ", offset)
+    # print("one", "reader: ", reader, "offset: ", offset)
     pageNum = input("\nWhich page do you want to copy? ")
 
     if pageNum.isdigit() == True:
         intPageNum = int(pageNum)
         # test reader value
-        print(reader)
+        # print(reader)
         # set pageObj value to page number passed to reader variable
         pageObj = reader.getPage(intPageNum + offset)
         output = pageObj.extractText()
@@ -142,7 +142,7 @@ def one(reader, offset):
 
 
 def firstPageFunc(reader, offset):
-    #print("firstPageFunc", "reader: ", reader, "offset: ", offset)
+    # print("firstPageFunc", "reader: ", reader, "offset: ", offset)
     firstPage = input("\nFirst Page:\n")
     # hit b to go back to oneOrMany
     if firstPage.isdigit() == False:
@@ -210,8 +210,8 @@ def offsetFunc(reader):
     # accept an offset
     offset = int(input("\nIf there is an offset of the page number enter it here, if not enter 0:\n(- To determine the offset variable, count all pages before the first numbered page (this includes contents, forward, preface, everything except the cover.))\n"))
     main(reader, offset)
-
     """
+
     try:
         offset = int(input("\nIf there is an offset of the page number enter it here, if not enter 0:\n(- To determine the offset variable, count all pages before the first numbered page (this includes contents, forward, preface, everything except the cover.))\n"))
         main(reader, offset)
@@ -244,7 +244,7 @@ def format(func, output, reader, offset):
 
 
 def prepDocx(func, output, reader, offset):
-    # print("prepDocx", "func: ", func, "output: ", output, "reader: ",
+    # print("prepDocx", "func: ", func, "output: ", "the output", "reader: ",
     #      reader, "offset: ", offset)
 
     #######
@@ -254,6 +254,7 @@ def prepDocx(func, output, reader, offset):
 
     # create a new word document
     global docx
+
     docx = Document()
     # add the selected contents to the document
     docx.add_paragraph(output)
@@ -267,12 +268,12 @@ def prepDocx(func, output, reader, offset):
         back(name, func, reader, offset)
 
     try:
-        testFileName(name, func, reader, offset)
+        testFileName(name, prepDocx, func, output, reader, offset)
 
     except Exception as e:
         print(name, "was not saved.")
         print("Error: ", e)
-        testFileName(name, func, reader, offset)
+        testFileName(name, prepDocx, func, output, reader, offset)
 
 
 ######################################
@@ -294,6 +295,8 @@ def saveDocx(name, docx):
 ###############################
 # INITIALIZATION
 ###############################
+
+
 if __name__ == "__main__":
     # open(create) a pdf object, must enter complete filepath
     print("\n\n" + "*" * 50)
