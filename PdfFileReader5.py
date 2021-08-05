@@ -1,10 +1,17 @@
 
 """
+<<<<<<< HEAD
 
 FileName: PdfFileReader5.py
 Author: Clint Kline
 Created: 7-18-2021
 Last Updated: 7-31-2021
+=======
+FileName: PdfFileReader5.py
+Author: Clint Kline
+Created: 7-18-2021
+Last Updated: 08-05-2021
+>>>>>>> hotfix
 Purpose:
     - copy text from a PDF file into a word docx
 
@@ -41,6 +48,7 @@ def main(reader, offset):
 
 
 def back(var1, func, *args):
+<<<<<<< HEAD
     # print("back::", "var1: ", var1, "func: ", func, "args: ", *args)
     if var1.lower() == "b":
         argSet = []
@@ -57,6 +65,47 @@ def back(var1, func, *args):
             func(argSet[0], argSet[1], argSet[2])
         elif len(argSet) == 4:
             func(argSet[0], argSet[1], argSet[2], argSet[3])
+=======
+    # print("\n\033[1;36;45mback::", "var1: ", var1,
+    #      "func: ", func, "args: ", args, "\033[0;0m")
+
+    # if the user chooses to go back, ensure proper
+    # delegation of arguments to correct function with
+    # parseArgs
+    if var1.lower() == "b":
+        parseArgs(func, args)
+
+
+######################################
+# PARSEARGS FUNCTION
+######################################
+
+
+def parseArgs(func, *args):
+    # create a list variable to store the args in
+    argSet = []
+    # extract each arg from args and store them in the argSet list
+    for arg in list(*args):
+        argSet.append(arg)
+    #    print("\n\033[1;32;43marg " + str(argSet.index(arg)) +
+    #          ": ", arg, "\033[0;0m")
+
+    # print("\n\033[1;35;44m argSet length: ", len(
+    #    argSet), "argSet: ", argSet, "\033[0;0m")
+
+    # count the number of args in the argSet list and assign the proper
+    # amount of args to the desired function
+    if len(argSet) == 0:
+        func()
+    elif len(argSet) == 1:
+        func(argSet[0])
+    elif len(argSet) == 2:
+        func(argSet[0], argSet[1])
+    elif len(argSet) == 3:
+        func(argSet[0], argSet[1], argSet[2])
+    elif len(argSet) == 4:
+        func(argSet[0], argSet[1], argSet[2], argSet[3])
+>>>>>>> hotfix
 
 
 ######################################
@@ -65,7 +114,13 @@ def back(var1, func, *args):
 
 
 def testFileName(var1, func, *args):
+<<<<<<< HEAD
     # print("testFileName", "var1: ", var1, "func: ", func, "args: ", args)
+=======
+    # print("\n\033[1;36;45m testFileName", "var1: ", var1,
+    #      "func: ", func, "args: ", args, "\033[0;0m")
+
+>>>>>>> hotfix
     # provide a list of illegal filname characters
     illegalChars = ["`", "~", "!", "@", "#", "$", "%", "^", "&", "*", "+", "=", "'", "|", ":", ";",
                     "[", "]", "{", "}", "<", ">", ",", "/" "?", "\\", "\"", "\n", "\r", "\t", "\b", "\f"]
@@ -74,6 +129,7 @@ def testFileName(var1, func, *args):
     # vvv print out the value of var legal
     # print(str(bool(FileNameIsIllegal)))
 
+<<<<<<< HEAD
     if str(bool(FileNameIsIllegal)) == "True":
         print("\nSpecial characters cannot be used to name a file.")
         back("b", func, args)
@@ -90,16 +146,42 @@ def testFileName(var1, func, *args):
         saveDocx(var1, docx)
 
 
+=======
+    # ensure filename compatability with the windows OS
+    if str(bool(FileNameIsIllegal)) == "True":
+        print("\nSpecial characters cannot be used to name a file.")
+        back("b", func, *args)
+    elif var1.startswith(tuple('0123456789')):
+        print("\nFile names cannot start with a number.")
+        back("b", func, *args)
+    elif var1.startswith(tuple('._-')):
+        print("\nStart a filename with letters only please.")
+        back("b", func, *args)
+    elif len(var1) > 31:
+        print("\nPlease keep file names under 31 characters.")
+        back("b", func, *args)
+    # if compatible send to saveDocx function
+    else:
+        saveDocx(var1, docx)
+
+>>>>>>> hotfix
 ######################################
 # ONE OR MANY FUNCTION
 ######################################
 
 
 def oneOrMany(reader, offset):
+<<<<<<< HEAD
     # user chooses the pages of the pdf to copy
     oom = str(input(
         "\nDo you want to copy more than one page? y/n.\n(you can hit \"b\" at any time to go back.)\n"))
 
+=======
+    # user chooses whether they want to save one page or a range of them
+    oom = str(input(
+        "\nDo you want to copy more than one page? y/n.\n(you can hit \"b\" at any time to go back.)\n"))
+    # enable user to go back
+>>>>>>> hotfix
     back(oom, offsetFunc, reader)
 
     if oom == "Y" or oom == "y":
@@ -117,19 +199,41 @@ def oneOrMany(reader, offset):
 
 
 def one(reader, offset):
+<<<<<<< HEAD
     # print("one", "reader: ", reader, "offset: ", offset)
     pageNum = input("\nWhich page do you want to copy? ")
 
+=======
+    # print("\n\033[1;36;45m one", "reader: ",
+    #      reader, "offset: ", offset, "\033[0;0m")
+
+    pageNum = input("\nWhich page do you want to copy? ")
+
+    # if the user inputs a number assign that page to the reader object
+>>>>>>> hotfix
     if pageNum.isdigit() == True:
         intPageNum = int(pageNum)
         # test reader value
         # print(reader)
+<<<<<<< HEAD
         # set pageObj value to page number passed to reader variable
         pageObj = reader.getPage(intPageNum + offset)
         output = pageObj.extractText()
         format(one, output, reader, offset)
     elif pageNum.isdigit() == False:
         back(pageNum, oneOrMany, reader, offset)
+=======
+        # set pageObj value to page number passed to reader object
+        pageObj = reader.getPage(intPageNum + offset)
+        # extract and format finalized reader object
+        output = pageObj.extractText()
+        format(one, output, reader, offset)
+
+    # if the user input is not a numbet, check to see if they want to go back
+    elif pageNum.isdigit() == False:
+        back(pageNum, oneOrMany, reader, offset)
+    # otherwise request proper input
+>>>>>>> hotfix
     else:
         print(
             "Input must be either an integer or the letter \"b\" to go back.")
@@ -142,6 +246,7 @@ def one(reader, offset):
 
 
 def firstPageFunc(reader, offset):
+<<<<<<< HEAD
     # print("firstPageFunc", "reader: ", reader, "offset: ", offset)
     firstPage = input("\nFirst Page:\n")
     # hit b to go back to oneOrMany
@@ -153,6 +258,31 @@ def firstPageFunc(reader, offset):
         # accept number of last page to be copied
         lastPageFunc(intFirstPage, reader, offset)
     # if firstPage input is not an int
+=======
+    # print("\n\033[1;36;45m firstPageFunc", "reader: ",
+    #      reader, "offset: ", offset, "\033[0;0m")
+
+    firstPage = input("\nFirst Page:\n")
+
+    # test to ensure input is number
+    if firstPage.isdigit() == False:
+        # if it is not
+        try:
+            # test to see if user wants to go back
+            back(firstPage, oneOrMany, reader, offset)
+        # otherwise request proper input
+        except Exception as e:
+            print("please enter a page number.")
+            print("Error: ", e)
+            firstPageFunc(reader, offset)
+    # if the user inputs a number assign that number
+    # to the firsPage variable and convert it to an int type
+    elif firstPage.isdigit() == True:
+        intFirstPage = int(firstPage)
+        # send input to lastPageFunc
+        lastPageFunc(intFirstPage, reader, offset)
+    # otherwise request proper input
+>>>>>>> hotfix
     else:
         print("please enter a page number.")
         firstPageFunc(reader, offset)
@@ -164,6 +294,7 @@ def firstPageFunc(reader, offset):
 
 
 def lastPageFunc(intFirstPage, reader, offset):
+<<<<<<< HEAD
     # print("lastPageFunc", "intFirstPage: ", intFirstPage, "reader: ", reader, "offset: ",
     #      offset)
     lastPage = input("\nLast Page:\n")  # 20
@@ -171,11 +302,26 @@ def lastPageFunc(intFirstPage, reader, offset):
     if lastPage.isdigit() == False:
         back(lastPage, firstPageFunc, reader, offset)
     # test to ensure input is int type
+=======
+    # print("\n\033[1;36;45m lastPageFunc", "intFirstPage: ", intFirstPage, "reader: ", reader, "offset: ",
+    #      offset, "\033[0;0m")
+
+    lastPage = input("\nLast Page:\n")  # 20
+
+    # test to ensure input is number
+    if lastPage.isdigit() == False:
+        back(intFirstPage, lastPageFunc, reader, offset)
+    # if it is convert it to int type
+>>>>>>> hotfix
     elif lastPage.isdigit() == True:
         intLastPage = int(lastPage)
         # ensure the value of firstPage is < the value of lastPage
         if intFirstPage < intLastPage:
+<<<<<<< HEAD
             # set variables
+=======
+            # inititalize variables
+>>>>>>> hotfix
             output = ""
             pageArray = []
             # create an array of all pages to be copied
@@ -197,7 +343,11 @@ def lastPageFunc(intFirstPage, reader, offset):
     # if lastPage input is not an int
     else:
         print("please enter a page number.")
+<<<<<<< HEAD
         firstPageFunc(reader, offset)
+=======
+        lastPageFunc(intFirstPage, reader, offset)
+>>>>>>> hotfix
 
 
 ####################################
@@ -206,8 +356,15 @@ def lastPageFunc(intFirstPage, reader, offset):
 
 
 def offsetFunc(reader):
+<<<<<<< HEAD
     """
     # accept an offset
+=======
+    # accept an offset
+
+    # vvvv shift (""")s to try/except to enable traceback
+    """
+>>>>>>> hotfix
     offset = int(input("\nIf there is an offset of the page number enter it here, if not enter 0:\n(- To determine the offset variable, count all pages before the first numbered page (this includes contents, forward, preface, everything except the cover.))\n"))
     main(reader, offset)
     """
@@ -216,7 +373,11 @@ def offsetFunc(reader):
         offset = int(input("\nIf there is an offset of the page number enter it here, if not enter 0:\n(- To determine the offset variable, count all pages before the first numbered page (this includes contents, forward, preface, everything except the cover.))\n"))
         main(reader, offset)
     except Exception as e:
+<<<<<<< HEAD
         print("\nThat didnt work. \nError: ", e, "\n\n")
+=======
+        print("\nThat didnt work #1. \nError: ", e, "\n\n")
+>>>>>>> hotfix
         offsetFunc(reader)
 
 ######################################
@@ -244,11 +405,19 @@ def format(func, output, reader, offset):
 
 
 def prepDocx(func, output, reader, offset):
+<<<<<<< HEAD
     # print("prepDocx", "func: ", func, "output: ", "the output", "reader: ",
     #      reader, "offset: ", offset)
 
     #######
     # vvv see the output as its written
+=======
+    # print("\n\033[1;36;45m prepDocx", "func: ", func, "output: ",
+    #      "the output", "reader: ", reader, "offset: ", offset, "\033[0;0m")
+
+    #######
+    # vvv enable pritn statement to see the output as its written
+>>>>>>> hotfix
     # print(output)
     #######
 
@@ -263,6 +432,7 @@ def prepDocx(func, output, reader, offset):
     name = input("\nWhat do you want to name the docx file?\n")
     # remove any whitespace from the name. deal with it.
     name = name.strip()
+<<<<<<< HEAD
 
     if name.lower() == 'b':
         back(name, func, reader, offset)
@@ -274,6 +444,20 @@ def prepDocx(func, output, reader, offset):
         print(name, "was not saved.")
         print("Error: ", e)
         testFileName(name, prepDocx, func, output, reader, offset)
+=======
+    # give user option to go back
+    if name.lower() == 'b':
+        back(name, func, reader, offset)
+    # otherwise test the file name
+    else:
+        try:
+            testFileName(name, func, reader, offset)
+        # if test fails
+        except Exception as e:
+            print(name, "was not saved.")
+            print("Error: ", e)
+            testFileName(name, func, reader, offset)
+>>>>>>> hotfix
 
 
 ######################################
@@ -300,7 +484,11 @@ def saveDocx(name, docx):
 if __name__ == "__main__":
     # open(create) a pdf object, must enter complete filepath
     print("\n\n" + "*" * 50)
+<<<<<<< HEAD
     print("*** Clint's PDF to DOCX ***")
+=======
+    print("\n\033[1;37;46m *** Clint's PDF to DOCX *** \033[0;0m")
+>>>>>>> hotfix
     print("*" * 50)
 
     fileName = input(
@@ -308,7 +496,11 @@ if __name__ == "__main__":
     try:
         pdfObj = open(fileName, 'rb')
     except Exception as e:
+<<<<<<< HEAD
         print("\nThat didnt work. Error: ", e, "\n\n")
+=======
+        print("\nThat didnt work #2. Error: ", e, "\n\n")
+>>>>>>> hotfix
 
     # print fileName to confirm correct files
     print("\nObjectID: ", pdfObj)
