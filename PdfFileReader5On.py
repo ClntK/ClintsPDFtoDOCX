@@ -16,6 +16,10 @@ Purpose:
     - To determine the offset variable, count all pages before the
     first numbered page except the cover, and enter that number
     when prompted.
+    
+    >>>> The On at the end of the file name means that the print 
+    statements in this file are turned On. If youd like them to 
+    be turned off, simply open the PdfFileReader5Off.py file instead.
 
 """
 
